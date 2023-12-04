@@ -13,7 +13,7 @@ class Scripts (QMainWindow):
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("SCRIPTS")
         MainWindow.resize(344, 645)
         MainWindow.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -102,42 +102,53 @@ class Ui_MainWindow(object):
         self.delGKBOn.clicked.connect(self.delGKBON)
         self.delBridge = QtWidgets.QPushButton(self.centralwidget)
         self.delBridge.setGeometry(QtCore.QRect(190, 460, 141, 21))
-        self.delBridge.setStyleSheet("")
         self.delBridge.setObjectName("delBridge")
+        self.delBridge.clicked.connect(self.delBridgE)
         self.DTSize = QtWidgets.QPushButton(self.centralwidget)
         self.DTSize.setGeometry(QtCore.QRect(190, 550, 141, 41))
         self.DTSize.setObjectName("DTSize")
+        self.DTSize.clicked.connect(self.DTSizE)
         self.sizeBD = QtWidgets.QPushButton(self.centralwidget)
         self.sizeBD.setGeometry(QtCore.QRect(190, 520, 141, 21))
         self.sizeBD.setObjectName("sizeBD")
+        self.sizeBD.clicked.connect(self.siZeBD)
         self.logMistakes = QtWidgets.QPushButton(self.centralwidget)
         self.logMistakes.setGeometry(QtCore.QRect(190, 340, 141, 31))
         self.logMistakes.setObjectName("logMistakes")
+        self.logMistakes.clicked.connect(self.logMistakeS)
         self.offHP = QtWidgets.QPushButton(self.centralwidget)
         self.offHP.setGeometry(QtCore.QRect(10, 380, 141, 21))
         self.offHP.setObjectName("offHP")
+        self.offHP.clicked.connect(self.oFfHP)
         self.offNCR = QtWidgets.QPushButton(self.centralwidget)
         self.offNCR.setGeometry(QtCore.QRect(10, 300, 141, 21))
         self.offNCR.setStyleSheet("gridline-color: rgb(255, 170, 255);")
         self.offNCR.setObjectName("offNCR")
+        self.offNCR.clicked.connect(self.offNCr)
         self.onNCR = QtWidgets.QPushButton(self.centralwidget)
         self.onNCR.setGeometry(QtCore.QRect(10, 340, 141, 21))
         self.onNCR.setObjectName("onNCR")
+        self.onNCR.clicked.connect(self.onNCr)
         self.onHP = QtWidgets.QPushButton(self.centralwidget)
         self.onHP.setGeometry(QtCore.QRect(10, 420, 141, 21))
         self.onHP.setObjectName("onHP")
+        self.onHP.clicked.connect(self.onHp)
         self.passTR = QtWidgets.QPushButton(self.centralwidget)
         self.passTR.setGeometry(QtCore.QRect(10, 540, 141, 21))
         self.passTR.setObjectName("passTR")
+        self.passTR.clicked.connect(self.passTr)
         self.passWK = QtWidgets.QPushButton(self.centralwidget)
         self.passWK.setGeometry(QtCore.QRect(10, 480, 141, 21))
         self.passWK.setObjectName("passWK")
+        self.passWK.clicked.connect(self.passWk)
         self.passPOS = QtWidgets.QPushButton(self.centralwidget)
         self.passPOS.setGeometry(QtCore.QRect(10, 510, 141, 21))
         self.passPOS.setObjectName("passPOS")
+        self.passPOS.clicked.connect(self.passPOs)
         self.passIPcam = QtWidgets.QPushButton(self.centralwidget)
         self.passIPcam.setGeometry(QtCore.QRect(10, 570, 141, 21))
         self.passIPcam.setObjectName("passIPcam")
+        self.passIPcam.clicked.connect(self.passIPcaM)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(230, 220, 71, 21))
         font = QtGui.QFont()
@@ -231,45 +242,59 @@ class Ui_MainWindow(object):
         text = r"rm /usr/local/gkretail/pos/gk_bon"
         pyperclip.copy(text)
 
-
-
-    def scaleinfO(self):
-        text = r"cat /var/log/info_ScaleScanner"
+    def delBridgE(self):
+        text = r"rm /usr/local/gkretail/pos/bridge.lock"
         pyperclip.copy(text)
 
-    def consoleAtoL(self):
-        text = r"/opt/atol/Console_util/test_atol.sh"
+    def siZeBD(self):
+        text = r"echo -e '\n\n' $(sudo ls -lh /usr/local/gkretail/pos/data | grep beleg | grep -v zip | awk '{print $5}')'\n\n'"
         pyperclip.copy(text)
 
-    def fWKB(self):
-        text = r"rcgk stop; sudo /usr/local/X5_scripts/NCR_keyboard/bin/kbupdate.sh"
+    def logMistakeS(self):
+        text = r"cat /usr/local/gkretail/pos/log/std_pos_error.log|grep -a ERROR"
         pyperclip.copy(text)
 
-    def droP(self):
-        text = r"cat /var/log/messages | grep -ia -A 10 \"USB disconnect\" | grep -a Manufacturer:| grep -av \"cat /var/log/messages\"|awk '{print$1,$2,$3,$4,$10,$11,$12,$13}'"
+    def DTSizE(self):
+        text = r"apt-get update; apt-get install -y drmoff; sed -i '/GRUB_CMDLINE_LINUX_DEFAULT/d' /etc/default/grub; sed -i '8a\GRUB_CMDLINE_LINUX_DEFAULT=\"quiet video=800x600 acpi_enforce_resources=lax splash nomodeset\"' /etc/default/grub; update-grub2; reboot;'"
         pyperclip.copy(text)
 
-    def cleaRBD(self):
+    def oFfHP(self):
         text = r"cd /usr/local/gkretail/pos/data;if ! [ -d ./old ]; then sudo mkdir old; fi;sudo mv standard_beleg.gdb ./old; sudo mv standard_stamm* ./old; sudo rm -rf temp_standard_stamm.gdb.zip*; cd ./empty; sudo cp -p standard_beleg.gdb ../; sudo cp -p standard_stamm.gdb ../"
         pyperclip.copy(text)
 
-    def modelPoS(self):
-        text = r" echo -e '\n\nМодель кассы: ' $(sudo dmidecode -t1 | grep -E 'Manufacturer|Product' | cut -d: -f 2; )' SN: ' $(sudo dmidecode -t1 | grep Serial | cut -d: -f 2)'\n'	'Последняя перезагрузка: ' $(uptime --since)'\n''Дата установки системы: '$(ls --time-style=long-iso -clt / | tail -n1 | awk '{print $7, $6}' 2>/dev/null)'\n''Дата обновления GK: ' $(ls -lt  --time-style='+%Y-%m-%d %H:%M' /usr/local/apr_utils/|grep root|head -1|awk '{print$6,$7}')'\n''Версия GK: '$(sudo unzip -c /usr/local/gkretail/pos/lib/com.gk-software.xrg.pos/pos-release-info.jar release.info | grep version.complete= | cut -d= -f 2)'\n'$(df -h | grep sda | awk '{print\"Занято места на диске: \" $5}')'\n'	'Количество ядер, потоков: '$(cat /proc/cpuinfo|grep processor|wc -l)'\n''Неотправленные чеки в ОФД: '$(cat /var/log/FR/info_FR_human | grep 'неотправленных' | cut -d- -f 2)'\n''Модель ФР: ' $(fr0=$(cat /var/log/FR/info_FR_human 2>/dev/null| grep 'Модель ФР:' | cut -d- -f2,3,4); if [ -z $fr0 ]; then fr=$(lsusb |grep -oE \"4ee4|0005\"); if [ $fr == 0005 ]; then echo Атол; elif [ $fr == 4ee4 ]; then echo Ритейл 01Ф\\Штрих; fi  2>/dev/null; else echo $fr0; fi)'\n''2D сканер: ' $(cat /var/log/info_HandScan|head -4 2>/dev/null)'\n''Весы: ' $(cat /var/log/info_ScaleScanner|head -4 2>/dev/null)'\n''Стационарный сканер: ' $(cat /var/log/info_Scanner|head -4 2>/dev/null)'\n';echo -e 'Состояние HDD - SSD\n\t'$(smartctl -i /dev/sda |grep \"User\"|awk '{print \"Объем: \" $5$6}'|tr -d '[|]';echo '\n\tДней в работе: ' $(($( smartctl -A /dev/sda | grep Power_On_Hours | awk '{print$10}')/24));echo '\n\tТемпература :' $( smartctl -A /dev/sda | grep '194 Temperature_Celsius'| awk '{print$10}');smart=$( smartctl -d ata -H /dev/sda | grep result | awk -F ':' '{print$2}');if [[ \"$smart\" == \" PASSED\" ]]; then echo \"\n\tСостояние: Диск в порядке\"; else echo \"Состояние: $smart\"; fi; echo;echo '\n\tМодель:' $(smartctl -i /dev/sda | grep -E 'Device Model|Serial Number'| awk -F ':' '{print$2}');ssd_life=$(smartctl -A /dev/sda | grep -E 'SSD_Life_Left' | awk '{print$2,$10}');if [[ -n \"$ssd_life\" ]]; then echo '\n\tSSD остаток жизни:' $(echo $ssd_life | awk '{print$2\"%\"}' ); fi;ssd_lifetime=$(smartctl -A /dev/sda | grep Remaining_Lifetime| awk '{print$2,$10}');if [[ -n \"$ssd_lifetime\" ]]; then echo '\n\tSSD остаток жизни:' $(echo $ssd_lifetime | awk '{print$2\"%\"}' ); fi;echo '\n\t'$(smartctl -A /dev/sda | grep -E 'Reallocated_Sector_Ct' | awk '{print$2,$10}');echo '\n\t'$(smartctl -A /dev/sda |grep 'Current_Pending_Sector' | awk '{print$2,$10}');echo '\n\t'$(smartctl -A /dev/sda |grep 'Offline_Uncorrectable' | awk '{print$2,$10}'));echo;echo 'Перезагрузки: ';last -x reboot|head -4"
+    def offNCr(self):
+        text = r"echo -n \"0000:00:1d.0\" > /sys/bus/pci/drivers/uhci_hcd/unbind"
         pyperclip.copy(text)
 
-    def enablEVNC(self):
-        text = r"sudo sed -i 's/-viewonly/ /g'  /lib/systemd/system/x11vnc.service; sudo systemctl daemon-reload; sudo systemctl restart x11vnc"
+    def onNCr(self):
+        text = r"echo -n \"0000:00:1d.0\" > /sys/bus/pci/drivers/uhci_hcd/bind"
         pyperclip.copy(text)
 
-    def delGKBON(self):
-        text = r"rm /usr/local/gkretail/pos/gk_bon"
+    def onHp(self):
+        text = r"echo -n \"0000:00:14.0\" > /sys/bus/pci/drivers/xhci_hcd/bind"
+        pyperclip.copy(text)
+
+    def passTr(self):
+        text = r"214365"
+        pyperclip.copy(text)
+
+    def passWk(self):
+        text = r"0eDX5!NQpH"
+        pyperclip.copy(text)
+
+    def passPOs(self):
+        text = r"7cD7;mZk"
+        pyperclip.copy(text)
+
+    def passIPcaM(self):
+        text = r"RfvthsX5@"
         pyperclip.copy(text)
 
 
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "SCRIPTS"))
         self.label_2.setText(_translate("MainWindow", "Сканеры/Весы"))
         self.label_3.setText(_translate("MainWindow", "    ФР"))
         self.infoFr.setText(_translate("MainWindow", "Инфо о ФР"))
